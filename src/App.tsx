@@ -1,13 +1,20 @@
 import React from "react";
-
 import { useStore } from "./store";
+import GardenCard from "../components/GardenCard";
+import PageContent from "../components/Layout/PageContent";
 
 export type AppProps = {};
 export type AppComponent = React.FunctionComponent<AppProps>;
 
 export const App: AppComponent = (): JSX.Element => {
-  const store = useStore();
-  console.log("store", store);
+  const { users } = useStore();
+  console.log(users);
 
-  return <div>Your app goes here</div>;
+  return (
+    <PageContent>
+      {users.map((users: User) => {
+        return <GardenCard {...users} />;
+      })}
+    </PageContent>
+  );
 };

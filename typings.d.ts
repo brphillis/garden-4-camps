@@ -1,5 +1,7 @@
+declare module "*.jpg";
+
 interface NewUser {
-  users: User[];
+  // users: User[];
   pictures: string[];
   status: string;
   owner: Owner;

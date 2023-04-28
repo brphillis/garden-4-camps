@@ -1,0 +1,17 @@
+.hideScroll::-webkit-scrollbar {
+  display: none;
+}
+
+.hideScroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.noOverflow {
+  overflow: hidden;
+}
+
+.testit {
+  height: "1px";
+  width: "1px";
+}
