@@ -17,10 +17,14 @@ interface Garden extends NewGarden {
   guid: string;
 }
 
-interface Owner {
+type Owner = {
   name: string;
   age: number;
   gender: string;
   phone: string;
   email: string;
+};
+
+interface User extends Owner {
+  password: string;
 }

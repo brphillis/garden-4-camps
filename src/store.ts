@@ -25,21 +25,42 @@ const removeGarden = (gardens: Garden[], id: string): Garden[] => {
   return gardens.filter((garden) => garden._id !== id);
 };
 
+const addUser = (users: User[], newUser: User): User[] => {
+  if (users) {
+    return [
+      ...users,
+      {
+        ...newUser,
+      },
+    ];
+  } else return [{ ...newUser }];
+};
+
 export type StorePropsType = {
   gardens: Garden[];
+  users: User[];
 };
 
 export type StoreActionsPropsType = {
   addGarden: () => void;
   setNewGarden: () => void;
   removeGarden: Function;
+
+  addUser: Function;
 };
 
 const InitialState: StorePropsType = {
   gardens: loadData,
+  users: [],
 };
 
 const StoreActions = (set: Function, get: Function): StoreActionsPropsType => ({
+  addUser(user: User) {
+    set((state: any) => ({
+      ...state,
+      users: addUser(state.user, user),
+    }));
+  },
   addGarden() {
     set((state: any) => ({
       ...state,

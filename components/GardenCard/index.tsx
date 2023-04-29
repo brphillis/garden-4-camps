@@ -17,6 +17,7 @@ const GardenCard = ({
   _id,
 }: Garden) => {
   const removeGarden = useStore((state) => state.removeGarden);
+
   return (
     <Card sx={{ maxWidth: 460, margin: "12px 24px" }}>
       <CardMedia sx={{ position: "relative", height: 180 }} image={pictures[0]}>
