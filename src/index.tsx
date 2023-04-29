@@ -1,17 +1,22 @@
 import React from "react";
-import { createRoot } from "react-dom/client";
-import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "../theme";
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Garden from "./routes/garden";
+import Root from "./routes/root";
 
-import { App } from "./App";
-import SiteLayout from "../components/Layout/SiteLayout";
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    children: [
+      {
+        path: "gardens/:id",
+        element: <Garden />,
+      },
+    ],
+  },
+]);
 
 const container = document.getElementById("root");
-const root = createRoot(container!);
-root.render(
-  <ThemeProvider theme={theme}>
-    <SiteLayout>
-      <App />
-    </SiteLayout>
-  </ThemeProvider>
-);
+const root = ReactDOM.createRoot(container!);
+root.render(<RouterProvider router={router} />);
