@@ -1,5 +1,9 @@
-import { TextField, Button, Box } from "@mui/material";
+import { TextField, Button, Typography } from "@mui/material";
 import * as React from "react";
+import { useRef } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import Validation from "../../utility/LoginValidation";
 
 type Props = {
   setUser: Function;
@@ -7,8 +11,23 @@ type Props = {
 };
 
 const LoginForm = ({ setUser, setIsRegistering }: Props) => {
+  const form = useRef<HTMLFormElement>(null);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<User>({
+    resolver: yupResolver(Validation),
+  });
+
+  const onSubmit = (inputData: User) => {
+    setUser(inputData.email, inputData.password);
+  };
+
   return (
     <form
+      ref={form}
+      onSubmit={handleSubmit(onSubmit)}
       style={{
         backgroundColor: "white",
         display: "block",
@@ -23,16 +42,35 @@ const LoginForm = ({ setUser, setIsRegistering }: Props) => {
       <TextField
         style={{ width: "98%", margin: "6px" }}
         type="text"
-        label="Username"
+        label="Email Address"
         variant="outlined"
+        {...register("email")}
       />
+      <Typography
+        color="warning.main"
+        fontWeight="bold"
+        padding="6px 12px"
+        fontSize="12px"
+      >
+        {errors.email?.message}
+      </Typography>
 
       <TextField
         style={{ width: "98%", margin: "6px" }}
-        type="text"
+        type="password"
         label="Password"
         variant="outlined"
+        {...register("password")}
       />
+
+      <Typography
+        color="warning.main"
+        fontWeight="bold"
+        padding="6px 12px"
+        fontSize="12px"
+      >
+        {errors.phone?.message}
+      </Typography>
 
       <div
         style={{
@@ -49,10 +87,10 @@ const LoginForm = ({ setUser, setIsRegistering }: Props) => {
           color="primary"
           onClick={() => setIsRegistering(true)}
         >
-          Register
+          REGISTER
         </Button>
-        <Button variant="contained" color="primary">
-          Login
+        <Button variant="contained" color="primary" type="submit">
+          LOGIN
         </Button>
       </div>
     </form>

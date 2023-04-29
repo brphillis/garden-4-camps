@@ -1,10 +1,13 @@
-import { TextField, Button, Box, Typography } from "@mui/material";
+import { TextField, Button, Typography } from "@mui/material";
 import * as React from "react";
 import { useRef } from "react";
 import { useStore } from "../../src/store";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Validation from "../../utility/RegisterValidation";
+import Swal from "sweetalert2";
+
+import "sweetalert2/src/sweetalert2.scss";
 
 type Props = {
   setUser: Function;
@@ -26,6 +29,16 @@ const RegisterForm = ({ setUser, setIsRegistering }: Props) => {
   const onSubmit = (inputData: User) => {
     const newUser: User = { ...inputData };
     addUser(newUser);
+    Swal.fire({
+      icon: "success",
+      title: "Registration was Successful!",
+      showConfirmButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setUser(inputData.email);
+        setIsRegistering(false);
+      }
+    });
   };
 
   return (
@@ -53,7 +66,7 @@ const RegisterForm = ({ setUser, setIsRegistering }: Props) => {
       <Typography
         color="warning.main"
         fontWeight="bold"
-        padding="2px 12px"
+        padding="6px 12px"
         fontSize="12px"
       >
         {errors.name?.message}
@@ -70,7 +83,7 @@ const RegisterForm = ({ setUser, setIsRegistering }: Props) => {
       <Typography
         color="warning.main"
         fontWeight="bold"
-        padding="2px 12px"
+        padding="6px 12px"
         fontSize="12px"
       >
         {errors.email?.message}
@@ -78,7 +91,7 @@ const RegisterForm = ({ setUser, setIsRegistering }: Props) => {
 
       <TextField
         style={{ width: "98%", margin: "6px" }}
-        type="text"
+        type="password"
         label="Password"
         variant="outlined"
         {...register("password")}
@@ -87,7 +100,7 @@ const RegisterForm = ({ setUser, setIsRegistering }: Props) => {
       <Typography
         color="warning.main"
         fontWeight="bold"
-        padding="2px 12px"
+        padding="6px 12px"
         fontSize="12px"
       >
         {errors.password?.message}
@@ -104,7 +117,7 @@ const RegisterForm = ({ setUser, setIsRegistering }: Props) => {
       <Typography
         color="warning.main"
         fontWeight="bold"
-        padding="2px 12px"
+        padding="6px 12px"
         fontSize="12px"
       >
         {errors.age?.message}
@@ -121,7 +134,7 @@ const RegisterForm = ({ setUser, setIsRegistering }: Props) => {
       <Typography
         color="warning.main"
         fontWeight="bold"
-        padding="2px 12px"
+        padding="6px 12px"
         fontSize="12px"
       >
         {errors.gender?.message}
@@ -138,7 +151,7 @@ const RegisterForm = ({ setUser, setIsRegistering }: Props) => {
       <Typography
         color="warning.main"
         fontWeight="bold"
-        padding="2px 12px"
+        padding="6px 12px"
         fontSize="12px"
       >
         {errors.phone?.message}

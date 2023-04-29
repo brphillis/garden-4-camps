@@ -1,10 +1,12 @@
 import create from "zustand";
 import { combine, devtools } from "zustand/middleware";
 import { v4 as uuidv4 } from "uuid";
-import { useId } from "react";
 import data from "./data.json";
+import mockUserData from "./mockusers.json";
 
 const loadData = JSON.parse(JSON.stringify(data));
+
+const loadUserData = JSON.parse(JSON.stringify(mockUserData));
 
 const addGarden = (gardens: Garden[], newGarden: NewGarden): Garden[] => [
   ...gardens,
@@ -51,7 +53,7 @@ export type StoreActionsPropsType = {
 
 const InitialState: StorePropsType = {
   gardens: loadData,
-  users: [],
+  users: loadUserData,
 };
 
 const StoreActions = (set: Function, get: Function): StoreActionsPropsType => ({

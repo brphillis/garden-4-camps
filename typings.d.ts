@@ -26,5 +26,5 @@ type Owner = {
 };
 
 interface User extends Owner {
-  password: string;
+  password?: string;
 }
