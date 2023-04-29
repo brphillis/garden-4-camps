@@ -23,7 +23,6 @@ export default function Root() {
   const registerThenSetUser = (email: string) => {
     const foundUser = users.find((users) => users.email === email);
     if (foundUser) {
-      delete foundUser.password;
       setUser(foundUser);
     }
   };
@@ -32,8 +31,8 @@ export default function Root() {
     const foundUser = users.find((users) => {
       return users.email === email && users.password === password;
     });
+
     if (foundUser) {
-      delete foundUser.password;
       setUser(foundUser);
       //we will just use localStorage for this local project
       localStorage.setItem("gardenUser", foundUser.email);
@@ -61,7 +60,7 @@ export default function Root() {
 
   return (
     <ThemeProvider theme={theme}>
-      <SiteLayout>
+      <SiteLayout setUser={setUser}>
         <>
           {!user && !localUser && !isRegistering && (
             <LoginForm

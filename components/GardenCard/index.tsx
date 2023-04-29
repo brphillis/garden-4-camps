@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import { maxLength } from "../../utility/StringHelpers";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { useStore } from "../../src/store";
+import { Link } from "react-router-dom";
 
 const GardenCard = ({
   status,
@@ -78,13 +79,15 @@ const GardenCard = ({
         <MdDelete />
       </Button>
 
-      <Button
-        size="small"
-        variant="contained"
-        sx={{ margin: "6px 12px", float: "right" }}
-      >
-        See More
-      </Button>
+      <Link to={`gardens/${_id}`}>
+        <Button
+          size="small"
+          variant="contained"
+          sx={{ margin: "6px 12px", float: "right" }}
+        >
+          See More
+        </Button>
+      </Link>
     </Card>
   );
 };

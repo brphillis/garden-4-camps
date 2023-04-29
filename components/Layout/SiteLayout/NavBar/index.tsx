@@ -6,9 +6,11 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
-import { MdHome, MdSearch } from "react-icons/md";
+import { MdHome, MdLogout, MdSearch } from "react-icons/md";
 
-type Props = {};
+type Props = {
+  setUser: Function;
+};
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -51,11 +53,26 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const SearchAppBar = () => {
+const SearchAppBar = ({ setUser }: Props) => {
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem("gardenUser");
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            sx={{ mr: 2 }}
+            onClick={handleLogout}
+          >
+            <MdLogout />
+          </IconButton>
           <IconButton
             size="large"
             edge="start"

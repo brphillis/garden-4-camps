@@ -21,6 +21,7 @@ const LoginForm = ({ setUser, setIsRegistering }: Props) => {
   });
 
   const onSubmit = (inputData: User) => {
+    console.log("ID", inputData);
     setUser(inputData.email, inputData.password);
   };
 

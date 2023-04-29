@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Garden from "./routes/garden";
+import Garden, { loader as gardenLoader } from "./routes/garden";
 import Root from "./routes/root";
 
 const router = createBrowserRouter([
@@ -12,6 +12,7 @@ const router = createBrowserRouter([
       {
         path: "gardens/:id",
         element: <Garden />,
+        loader: gardenLoader,
       },
     ],
   },
