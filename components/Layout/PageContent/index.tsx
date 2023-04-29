@@ -5,10 +5,18 @@ type Props = {
   children: JSX.Element | JSX.Element[];
 };
 
-function PageContent({ children }: Props) {
+const PageContent = ({ children }: Props) => {
   return (
-    <Box style={{ maxHeight: "100vh", overflowY: "scroll" }}>{children}</Box>
+    <Box
+      style={{
+        maxHeight: "100dvh",
+        height: "calc(100vh - 64px)",
+        overflowY: "scroll",
+      }}
+    >
+      {children}
+    </Box>
   );
-}
+};
 
 export default PageContent;

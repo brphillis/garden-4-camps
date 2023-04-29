@@ -6,40 +6,57 @@ import data from "./data.json";
 
 const loadData = JSON.parse(JSON.stringify(data));
 
-const addUser = (users: User[], newUser: NewUser): User[] => [
-  ...users,
+const addGarden = (gardens: Garden[], newGarden: NewGarden): Garden[] => [
+  ...gardens,
   {
-    _id: useId(),
+    _id: "NEW ID PLACEHOLDER",
     guid: uuidv4(),
-    ...newUser,
+    ...newGarden,
   },
 ];
 
+const updateGarden = (gardens: Garden[], id: string, text: string): Garden[] =>
+  gardens.map((garden) => ({
+    ...garden,
+    // data: garden.id === id ? data : garden.data,
+  }));
+
+const removeGarden = (gardens: Garden[], id: string): Garden[] => {
+  return gardens.filter((garden) => garden._id !== id);
+};
+
 export type StorePropsType = {
-  users: User[];
+  gardens: Garden[];
 };
 
 export type StoreActionsPropsType = {
-  addUser: () => void;
-  setNewUser: () => void;
+  addGarden: () => void;
+  setNewGarden: () => void;
+  removeGarden: Function;
 };
 
 const InitialState: StorePropsType = {
-  users: loadData,
+  gardens: loadData,
 };
 
 const StoreActions = (set: Function, get: Function): StoreActionsPropsType => ({
-  addUser() {
+  addGarden() {
     set((state: any) => ({
       ...state,
-      users: addUser(state.users, state.newUser),
-      newUser: "",
+      gardens: addGarden(state.gardens, state.newGarden),
+      newGarden: "",
     }));
   },
-  setNewUser() {
-    set((newUser: NewUser) => ({
-      ...newUser,
-      newUser,
+  setNewGarden() {
+    set((newGarden: NewGarden) => ({
+      ...newGarden,
+      newGarden,
+    }));
+  },
+  removeGarden(_id: string) {
+    set((state: any) => ({
+      ...state,
+      gardens: removeGarden(state.gardens, _id),
     }));
   },
 });

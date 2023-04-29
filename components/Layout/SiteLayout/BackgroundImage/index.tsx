@@ -10,7 +10,7 @@ const BackgroundImage = ({ children }: Props) => {
   return (
     <Box
       sx={{
-        height: "100vh",
+        height: "100dvh",
         width: "100%",
         maxWidth: "100vw",
         backgroundImage: `url(${image})`,

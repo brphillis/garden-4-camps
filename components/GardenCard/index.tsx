@@ -5,8 +5,18 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { maxLength } from "../../utility/StringHelpers";
+import { MdDelete, MdEdit } from "react-icons/md";
+import { useStore } from "../../src/store";
 
-const GardenCard = ({ status, address, owner, pictures, about }: User) => {
+const GardenCard = ({
+  status,
+  address,
+  owner,
+  pictures,
+  about,
+  _id,
+}: Garden) => {
+  const removeGarden = useStore((state) => state.removeGarden);
   return (
     <Card sx={{ maxWidth: 460, margin: "12px 24px" }}>
       <CardMedia sx={{ position: "relative", height: 180 }} image={pictures[0]}>
@@ -31,6 +41,41 @@ const GardenCard = ({ status, address, owner, pictures, about }: User) => {
           {maxLength(about, 205)}
         </Typography>
       </CardContent>
+
+      <Button
+        size="large"
+        variant="contained"
+        sx={{
+          margin: "6px 6px 12px 12px",
+          float: "left",
+          borderRadius: "100%",
+          height: "32px",
+          width: "32px",
+          padding: "0px",
+          minWidth: "0px",
+        }}
+      >
+        <MdEdit />
+      </Button>
+
+      <Button
+        size="large"
+        variant="contained"
+        sx={{
+          margin: "6px",
+          float: "left",
+          borderRadius: "100%",
+          height: "32px",
+          width: "32px",
+          padding: "0px",
+          minWidth: "0px",
+        }}
+        onClick={() => {
+          removeGarden(_id);
+        }}
+      >
+        <MdDelete />
+      </Button>
 
       <Button
         size="small"

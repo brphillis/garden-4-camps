@@ -7,13 +7,15 @@ export type AppProps = {};
 export type AppComponent = React.FunctionComponent<AppProps>;
 
 export const App: AppComponent = (): JSX.Element => {
-  const { users } = useStore();
-  console.log(users);
-
+  const { gardens } = useStore();
   return (
     <PageContent>
-      {users.map((users: User) => {
-        return <GardenCard {...users} />;
+      {gardens.map((gardens: Garden) => {
+        return (
+          <React.Fragment key={gardens._id}>
+            <GardenCard {...gardens} />
+          </React.Fragment>
+        );
       })}
     </PageContent>
   );

@@ -51,7 +51,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchAppBar() {
+const SearchAppBar = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -86,4 +86,6 @@ export default function SearchAppBar() {
       </AppBar>
     </Box>
   );
-}
+};
+
+export default SearchAppBar;

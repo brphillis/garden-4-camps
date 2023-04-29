@@ -1,7 +1,6 @@
 declare module "*.jpg";
 
-interface NewUser {
-  // users: User[];
+type NewGarden = {
   pictures: string[];
   status: string;
   owner: Owner;
@@ -11,9 +10,9 @@ interface NewUser {
   longitude: number;
   tags: string[];
   comments: string[];
-}
+};
 
-interface User extends NewUser {
+interface Garden extends NewGarden {
   _id: string;
   guid: string;
 }

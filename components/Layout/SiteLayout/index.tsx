@@ -6,7 +6,7 @@ type Props = {
   children: JSX.Element | JSX.Element[];
 };
 
-function SiteLayout({ children }: Props) {
+const SiteLayout = ({ children }: Props) => {
   return (
     <>
       <BackgroundImage>
@@ -15,6 +15,6 @@ function SiteLayout({ children }: Props) {
       </BackgroundImage>
     </>
   );
-}
+};
 
 export default SiteLayout;
