@@ -41,7 +41,7 @@ function Carousel({ children, map }: Props) {
           >
             <iframe
               key={latitude.toString() + longitude.toString()}
-              style={{ height: "450px", width: "100%" }}
+              style={{ height: "350px", width: "99%" }}
               src={`//maps.google.com/maps?q=${latitude},${longitude}&z=16&output=embed`}
             />
           </div>

@@ -31,6 +31,19 @@ const updateGarden = (gardens: Garden[], updatedGarden: Garden): Garden[] => {
   });
 };
 
+const addComment = (
+  gardens: Garden[],
+  id: string,
+  comment: GardenComment
+): Garden[] => {
+  return gardens.map((garden) => {
+    if (garden._id === id) {
+      return { ...garden, comments: [...garden.comments, comment] };
+    }
+    return garden;
+  });
+};
+
 const removeGarden = (gardens: Garden[], id: string): Garden[] => {
   return gardens.filter((garden) => garden._id !== id);
 };
@@ -54,6 +67,7 @@ export type StorePropsType = {
 export type StoreActionsPropsType = {
   addGarden: (garden: Garden) => void;
   updateGarden: (garden: Garden) => void;
+  addComment: (id: string, comment: GardenComment) => void;
   removeGarden: (gardenId: string) => void;
   addUser: (user: User) => void;
 };
@@ -80,6 +94,11 @@ const StoreActions = (set: Function, get: Function): StoreActionsPropsType => ({
     set((state: any) => ({
       ...state,
       gardens: updateGarden(state.gardens, garden),
+    })),
+  addComment: (id: string, comment: GardenComment) =>
+    set((state: any) => ({
+      ...state,
+      gardens: addComment(state.gardens, id, comment),
     })),
   removeGarden(_id: string) {
     set((state: any) => ({

@@ -1,13 +1,11 @@
 import React, { useContext } from "react";
 import { UserContext } from "../../../../context/UserContext";
 import { useNavigate } from "react-router-dom";
-import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
 import { MdAdd, MdHome, MdLogout } from "react-icons/md";
 
 const SearchAppBar = () => {
@@ -60,7 +58,11 @@ const SearchAppBar = () => {
             component="div"
             position="absolute"
             right="48px"
-            sx={{ float: "right", display: { xs: "none", sm: "block" } }}
+            sx={{
+              float: "right",
+              display: { xs: "none", sm: "block" },
+              userSelect: "none",
+            }}
           >
             Garden 4 Camps
           </Typography>

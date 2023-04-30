@@ -1,6 +1,6 @@
 import "sweetalert2/src/sweetalert2.scss";
 
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useStore } from "../store";
 import { UserContext } from "../../context/UserContext";
@@ -21,7 +21,6 @@ export default function Root() {
   const { user, isRegistering } = useContext(UserContext);
   const { gardens } = useStore();
 
-  console.log(location);
   return (
     <SiteLayout>
       <>
@@ -33,10 +32,13 @@ export default function Root() {
           <PageContent>
             <Box
               sx={{
+                position: "relative",
                 display: "flex",
                 width: "100vw",
                 flexDirection: "row",
-                flexWrap: "wrap",
+                justifyContent: "center",
+                flexWrap: "wrap-reverse",
+                gap: "48px",
               }}
             >
               <Box
@@ -45,6 +47,11 @@ export default function Root() {
                   overflowY: "scroll",
                   maxHeight: "calc(100vh - 85px)",
                   margin: "12px 0px",
+                  display: { lg: "flex", xl: "block" },
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexWrap: "wrap",
                 }}
               >
                 {gardens.map((gardens: Garden) => {
@@ -62,14 +69,18 @@ export default function Root() {
                     height: "450px",
                     width: "450px",
                     display: "block",
-                    margin: "5% auto",
+                    margin: {
+                      sm: "48px auto 64px auto",
+                      md: "48px auto 64px auto",
+                      xl: "92px auto auto auto",
+                    },
+                    padding: "48px",
                   }}
                 >
                   <Lottie
                     animationData={campingAnimation}
                     loop={true}
                     autoplay={true}
-                    className="block mx-auto h-[120px] w-[120px] mb-2"
                   />
                   <Typography
                     variant="h3"

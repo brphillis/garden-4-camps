@@ -86,6 +86,7 @@ export default function GardenForm({ id }: Params) {
       latitude,
       tags: ["test", "test"],
       status: "active",
+      comments: [],
       owner: loadedGarden?.owner || user!,
     };
 
@@ -117,7 +118,7 @@ export default function GardenForm({ id }: Params) {
         maxWidth: "98vw",
         justifyContent: "center",
         alignItems: "center",
-        margin: "calc(100vh/10) auto",
+        margin: "auto",
         padding: "24px",
       }}
     >

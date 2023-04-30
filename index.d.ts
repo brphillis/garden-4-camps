@@ -21,8 +21,13 @@ type Garden = {
   latitude: number;
   longitude: number;
   tags: string[];
-  comments?: string[];
+  comments: GardenComment[];
 };
+
+interface GardenComment {
+  text: string;
+  user: string;
+}
 
 type LoadedGarden = {
   owner: Owner | null;

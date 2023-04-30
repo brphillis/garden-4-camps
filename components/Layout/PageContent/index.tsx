@@ -8,6 +8,7 @@ type Props = {
 const PageContent = ({ children }: Props) => {
   return (
     <Box
+      id="PageContentContainer"
       style={{
         maxHeight: "100dvh",
         maxWidth: "100vw",

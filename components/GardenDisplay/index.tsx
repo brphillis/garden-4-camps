@@ -1,7 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useStore } from "../../src/store";
 import { useLocation } from "react-router-dom";
-import { Avatar, CircularProgress, Container } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  Divider,
+  TextField,
+} from "@mui/material";
 
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -10,6 +18,7 @@ import Carousel from "../../components/Carousel";
 import { MdEmail, MdPhone } from "react-icons/md";
 import avatarMale from "../../src/images/avatar-male.jpg";
 import avatarFemale from "../../src/images/avatar-female.jpg";
+import { UserContext } from "../../context/UserContext";
 
 type Props = {
   id: string;
@@ -17,11 +26,16 @@ type Props = {
 
 const Garden = ({ id }: Props) => {
   const location = useLocation();
-  const [garden, setGarden] = useState<Garden>();
   const { gardens } = useStore();
+  const { user } = useContext(UserContext);
+  const addComment = useStore((state) => state.addComment);
+  const [comment, setComment] = useState<string>("");
+  const [latestComments, setLatestComments] = useState<GardenComment[]>();
+  const [garden, setGarden] = useState<Garden>();
   const {
     address,
     about,
+    comments,
     owner: { name, age, phone, email } = {
       name: "",
       age: 0,
@@ -34,12 +48,19 @@ const Garden = ({ id }: Props) => {
     const foundGarden = gardens.find((gardens) => gardens._id === id);
     if (foundGarden) {
       setGarden(foundGarden);
+      setLatestComments(foundGarden.comments);
     }
   };
 
   useEffect(() => {
     findThenSetGarden(id);
   }, [location]);
+
+  const handleAddComment = () => {
+    const newComment = { text: comment, user: user!.name };
+    addComment(id, newComment);
+    setLatestComments([newComment, ...latestComments!]);
+  };
 
   if (garden) {
     const gardenMap = {
@@ -49,6 +70,7 @@ const Garden = ({ id }: Props) => {
     return (
       <Card
         sx={{
+          position: "relative",
           width: "1250px",
           maxWidth: "98vw",
           maxHeight: "calc(100vh - 85px)",
@@ -60,9 +82,12 @@ const Garden = ({ id }: Props) => {
           alignItems: "center",
           overflowY: "scroll",
         }}
-        className="hideScroll"
       >
-        <Typography variant="h4" sx={{ padding: "24px", fontWeight: "bold" }}>
+        <Typography
+          id="ThisPageTitle"
+          variant="h5"
+          sx={{ padding: "24px", fontWeight: "bold" }}
+        >
           {address}
         </Typography>
 
@@ -79,7 +104,7 @@ const Garden = ({ id }: Props) => {
                 <img
                   src={imgSrc}
                   style={{
-                    height: "450px",
+                    height: "350px",
                     width: "100%",
                     objectFit: "cover",
                   }}
@@ -148,6 +173,81 @@ const Garden = ({ id }: Props) => {
             </Container>
           </Container>
         </Container>
+        <Divider sx={{ width: "100%", margin: "12px 0px" }} />
+        <Typography textAlign="center">Latest Comments</Typography>
+        <Divider sx={{ width: "100%", margin: "12px 0px 24px 0px" }} />
+        {latestComments &&
+          latestComments.map(({ user, text }) => {
+            return (
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  width: "300px",
+                  marginBottom: "12px",
+                }}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                  }}
+                >
+                  <Avatar sx={{ bgcolor: "blue" }}>{user.charAt(0)}</Avatar>
+                  <Typography
+                    variant="body2"
+                    color="text.primary"
+                    p="12px"
+                    fontWeight="bold"
+                  >
+                    {user}
+                  </Typography>
+                </Box>
+                <Typography
+                  variant="body2"
+                  color="text.primary"
+                  p="12px"
+                  fontWeight="bold"
+                >
+                  " {text} "
+                </Typography>
+              </Box>
+            );
+          })}
+
+        <Box sx={{ display: "block", margin: "24px auto" }}>
+          <Container
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "6px",
+              maxWidth: "98vw",
+            }}
+          >
+            <Typography textAlign="center">Add a Comment</Typography>
+            <TextField
+              onChange={(e) => {
+                setComment(e.target.value);
+              }}
+              sx={{ maxWidth: "95%", width: "500px", margin: "6px" }}
+              id="outlined-multiline-static"
+              label="Comment"
+              multiline
+              rows={4}
+            />
+            <Button
+              variant="contained"
+              size="small"
+              sx={{ width: "max-content", minWidth: "0px" }}
+              onClick={handleAddComment}
+            >
+              Add Comment
+            </Button>
+          </Container>
+        </Box>
       </Card>
     );
   } else {

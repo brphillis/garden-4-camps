@@ -14,7 +14,7 @@ const GardenCard = ({ status, address, pictures, about, _id }: Garden) => {
   const removeGarden = useStore((state) => state.removeGarden);
 
   return (
-    <Card sx={{ maxWidth: 460, margin: "0px 24px", marginBottom: "12px" }}>
+    <Card sx={{ maxWidth: 460, margin: "0px 6px", marginBottom: "12px" }}>
       <CardMedia sx={{ position: "relative", height: 180 }} image={pictures[0]}>
         <Typography
           sx={{
@@ -50,8 +50,9 @@ const GardenCard = ({ status, address, pictures, about, _id }: Garden) => {
           padding: "0px",
           minWidth: "0px",
         }}
+        onClick={() => Navigate(`/editGarden/${_id}`)}
       >
-        <MdEdit onClick={() => Navigate(`/editGarden/${_id}`)} />
+        <MdEdit />
       </Button>
 
       <Button

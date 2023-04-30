@@ -29,15 +29,15 @@ We expect you to take around 3 hours to complete the assignment so feel free to 
 
 - [x] Setup the project
 
-- [ ] Hydrate the JSON data into the Zustand store and create a UI list representing the data
+- [x] Hydrate the JSON data into the Zustand store and create a UI list representing the data
 
-- [ ] Every item in the list links to its own detailed page
+- [x] Every item in the list links to its own detailed page
 
-- [ ] The main page has functionality to add/edit/delete items
+- [x] The main page has functionality to add/edit/delete items
 
 - [ ] The main list can be filtered (name/address/tags etc... a couple should be enough)
 
-- [ ] Comments can be added to the item details page
+- [x] Comments can be added to the item details page
 
 - [ ] If you went that far and have time left, feel free to impress us with whatever else you think of!
 

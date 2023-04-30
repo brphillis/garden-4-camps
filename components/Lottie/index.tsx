@@ -6,7 +6,6 @@ interface LottieProps {
   animationData: any;
   loop: boolean;
   autoplay: boolean;
-  className: string;
 }
 
 export const Lottie = ({ animationData, loop, autoplay }: LottieProps) => {
