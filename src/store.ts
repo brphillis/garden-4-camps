@@ -22,12 +22,14 @@ const addGarden = (gardens: Garden[], newGarden: Garden): Garden[] => {
       },
     ];
 };
-
-const updateGarden = (gardens: Garden[], id: string, text: string): Garden[] =>
-  gardens.map((garden) => ({
-    ...garden,
-    // data: garden.id === id ? data : garden.data,
-  }));
+const updateGarden = (gardens: Garden[], updatedGarden: Garden): Garden[] => {
+  return gardens.map((garden) => {
+    if (garden._id === updatedGarden._id) {
+      return { ...updatedGarden };
+    }
+    return garden;
+  });
+};
 
 const removeGarden = (gardens: Garden[], id: string): Garden[] => {
   return gardens.filter((garden) => garden._id !== id);
@@ -51,7 +53,7 @@ export type StorePropsType = {
 
 export type StoreActionsPropsType = {
   addGarden: (garden: Garden) => void;
-  setNewGarden: () => void;
+  updateGarden: (garden: Garden) => void;
   removeGarden: (gardenId: string) => void;
   addUser: (user: User) => void;
 };
@@ -74,12 +76,11 @@ const StoreActions = (set: Function, get: Function): StoreActionsPropsType => ({
       gardens: addGarden(state.gardens, garden),
     }));
   },
-  setNewGarden() {
-    set((newGarden: NewGarden) => ({
-      ...newGarden,
-      newGarden,
-    }));
-  },
+  updateGarden: (garden: Garden) =>
+    set((state: any) => ({
+      ...state,
+      gardens: updateGarden(state.gardens, garden),
+    })),
   removeGarden(_id: string) {
     set((state: any) => ({
       ...state,

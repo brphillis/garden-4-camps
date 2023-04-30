@@ -1,4 +1,4 @@
-import React, { useContext, useId, useRef, useState } from "react";
+import React, { useContext, useEffect, useId, useRef, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useStore } from "../store";
@@ -29,30 +29,51 @@ export async function loader({ params }) {
   }
 }
 
+type LoadedGarden = {
+  owner: Owner | null;
+  _id: string;
+  guid: string;
+};
+
 const AddGarden = () => {
   //   const location = useLocation();
-  //   const id = useLoaderData() as string;
+  const id = useLoaderData() as string;
   const addGarden = useStore((state) => state.addGarden);
+  const updateGarden = useStore((state) => state.updateGarden);
   const { user } = useContext(UserContext);
-  //   const [garden, setGarden] = useState<Garden>();
-  //   const { gardens } = useStore();
+  const [loadedGarden, setLoadedGarden] = useState<LoadedGarden | null>(null);
+  const { gardens } = useStore();
   const [imageTwo, setImageTwo] = useState<boolean>(false);
   const [imageThree, setImageThree] = useState<boolean>(false);
   const [hasMap, setHasMap] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  //   const findThenSetGarden = (id: string) => {
-  //     const foundGarden = gardens.find((gardens) => gardens._id === id);
-  //     if (foundGarden) {
-  //       setGarden(foundGarden);
-  //     }
-  //   };
+  const handleFormPrefill = (id: string) => {
+    const foundGarden = gardens.find((gardens) => gardens._id === id);
+    if (foundGarden) {
+      Object.entries(foundGarden).forEach(([name, value]: any) =>
+        setValue(name, value)
+      );
+      setLoadedGarden({
+        owner: foundGarden.owner,
+        _id: foundGarden._id,
+        guid: foundGarden.guid,
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (id) {
+      handleFormPrefill(id);
+    }
+  }, []);
 
   const form = useRef<HTMLFormElement>(null);
   const {
     register: registerValidation,
     handleSubmit,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm<Garden>({
     resolver: yupResolver(Validation),
@@ -65,9 +86,11 @@ const AddGarden = () => {
     longitude,
     latitude,
   }: Garden) => {
-    const garden: Garden = {
-      _id: generateId(),
-      guid: uuidv4(),
+    loadedGarden;
+
+    const newGarden: Garden = {
+      _id: loadedGarden?._id || generateId(),
+      guid: loadedGarden?.guid || uuidv4(),
       address,
       about,
       pictures,
@@ -75,11 +98,26 @@ const AddGarden = () => {
       latitude,
       tags: ["test", "test"],
       status: "active",
-      owner: user!,
+      owner: loadedGarden?.owner || user!,
     };
 
-    addGarden(garden);
-    navigate("/");
+    const userOwnsGarden = user?.email === newGarden.owner.email;
+
+    // if (id && !userOwnsGarden) {
+    //   alert("You dont own this Garden");
+    // }
+    // if (id && userOwnsGarden) {
+    //   updateGarden(newGarden);
+    //   navigate("/");
+    // } else {
+    //   addGarden(newGarden);
+    //   navigate("/");
+    // }
+
+    updateGarden(newGarden);
+    navigate(`/gardens/${newGarden._id}`);
+    console.log("newgarden", newGarden);
+    console.log(gardens);
   };
 
   return (

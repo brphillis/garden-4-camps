@@ -10,6 +10,7 @@ import RegisterForm from "../../components/RegisterForm";
 import PageContent from "../../components/Layout/PageContent";
 import GardenCard from "../../components/GardenCard";
 import { Box, Container } from "@mui/material";
+import { generateId } from "../../utility/StringHelpers";
 
 export default function Root() {
   const { user, isRegistering } = useContext(UserContext);
@@ -42,7 +43,7 @@ export default function Root() {
               >
                 {gardens.map((gardens: Garden) => {
                   return (
-                    <React.Fragment key={gardens._id}>
+                    <React.Fragment key={generateId()}>
                       <GardenCard {...gardens} />
                     </React.Fragment>
                   );
