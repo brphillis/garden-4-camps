@@ -1,101 +1,59 @@
-import React, { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
-import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "../../theme";
-import SiteLayout from "../../components/Layout/SiteLayout";
-import { useStore } from "../store";
+import "sweetalert2/src/sweetalert2.scss";
 
-import { Box } from "@mui/material";
-import Swal from "sweetalert2";
+import React, { useContext } from "react";
+import { Outlet } from "react-router-dom";
+import { useStore } from "../store";
+import { UserContext } from "../../context/UserContext";
+import SiteLayout from "../../components/Layout/SiteLayout";
 import LoginForm from "../../components/LoginForm";
 import RegisterForm from "../../components/RegisterForm";
 import PageContent from "../../components/Layout/PageContent";
 import GardenCard from "../../components/GardenCard";
+import { Box, Container } from "@mui/material";
 
 export default function Root() {
-  const [user, setUser] = useState<User | null>(null);
-  const [localUser, setLocalUser] = useState<string | null>(
-    localStorage.gardenUser
-  );
-  const [isRegistering, setIsRegistering] = useState<boolean>(false);
-  const { gardens, users } = useStore();
-
-  const registerThenSetUser = (email: string) => {
-    const foundUser = users.find((users) => users.email === email);
-    if (foundUser) {
-      setUser(foundUser);
-    }
-  };
-
-  const loginThenSetUser = (email: string, password: string) => {
-    const foundUser = users.find((users) => {
-      return users.email === email && users.password === password;
-    });
-
-    if (foundUser) {
-      setUser(foundUser);
-      //we will just use localStorage for this local project
-      localStorage.setItem("gardenUser", foundUser.email);
-    } else {
-      Swal.fire({
-        icon: "error",
-        title: "Invalid Login Credentials.",
-        showConfirmButton: true,
-      });
-    }
-  };
-
-  useEffect(() => {
-    if (localStorage.gardenUser) {
-      const foundUser = users.find((users) => {
-        return users.email === localStorage.gardenUser;
-      });
-      if (foundUser) {
-        setUser(foundUser);
-      } else {
-        setLocalUser(null);
-      }
-    }
-  }, []);
+  const { user, isRegistering } = useContext(UserContext);
+  const { gardens } = useStore();
 
   return (
-    <ThemeProvider theme={theme}>
-      <SiteLayout setUser={setUser}>
-        <>
-          {!user && !localUser && !isRegistering && (
-            <LoginForm
-              setUser={loginThenSetUser}
-              setIsRegistering={setIsRegistering}
-            />
-          )}
+    <SiteLayout>
+      <>
+        {/* {!user && !isRegistering && <LoginForm />}
 
-          {!user && !localUser && isRegistering && (
-            <RegisterForm
-              setUser={registerThenSetUser}
-              setIsRegistering={setIsRegistering}
-            />
-          )}
+        {!user && isRegistering && <RegisterForm />} */}
 
-          {user && (
-            <PageContent>
+        {!user && (
+          <PageContent>
+            <Box
+              sx={{
+                display: "flex",
+                width: "100vw",
+                flexDirection: "row",
+                flexWrap: "wrap",
+              }}
+            >
               <Box
-                sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
+                className="hideScroll"
+                sx={{
+                  overflowY: "scroll",
+                  maxHeight: "calc(100vh - 85px)",
+                  margin: "12px 0px",
+                }}
               >
-                <Box>
-                  {gardens.map((gardens: Garden) => {
-                    return (
-                      <React.Fragment key={gardens._id}>
-                        <GardenCard {...gardens} />
-                      </React.Fragment>
-                    );
-                  })}
-                </Box>
-                <Outlet />
+                {gardens.map((gardens: Garden) => {
+                  return (
+                    <React.Fragment key={gardens._id}>
+                      <GardenCard {...gardens} />
+                    </React.Fragment>
+                  );
+                })}
               </Box>
-            </PageContent>
-          )}
-        </>
-      </SiteLayout>
-    </ThemeProvider>
+
+              <Outlet />
+            </Box>
+          </PageContent>
+        )}
+      </>
+    </SiteLayout>
   );
 }

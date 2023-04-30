@@ -1,28 +1,23 @@
-import { TextField, Button, Typography } from "@mui/material";
-import * as React from "react";
-import { useRef } from "react";
+import React, { useContext, useRef } from "react";
+import { UserContext } from "../../context/UserContext";
 import { useForm } from "react-hook-form";
+import { TextField, Button, Typography } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Validation from "../../utility/LoginValidation";
 
-type Props = {
-  setUser: Function;
-  setIsRegistering: Function;
-};
-
-const LoginForm = ({ setUser, setIsRegistering }: Props) => {
+const LoginForm = () => {
+  const { login, setIsRegistering } = useContext(UserContext);
   const form = useRef<HTMLFormElement>(null);
   const {
-    register,
+    register: registerValidation,
     handleSubmit,
     formState: { errors },
   } = useForm<User>({
     resolver: yupResolver(Validation),
   });
 
-  const onSubmit = (inputData: User) => {
-    console.log("ID", inputData);
-    setUser(inputData.email, inputData.password);
+  const onSubmit = ({ email, password }: User) => {
+    login(email, password);
   };
 
   return (
@@ -45,7 +40,7 @@ const LoginForm = ({ setUser, setIsRegistering }: Props) => {
         type="text"
         label="Email Address"
         variant="outlined"
-        {...register("email")}
+        {...registerValidation("email")}
       />
       <Typography
         color="warning.main"
@@ -61,7 +56,7 @@ const LoginForm = ({ setUser, setIsRegistering }: Props) => {
         type="password"
         label="Password"
         variant="outlined"
-        {...register("password")}
+        {...registerValidation("password")}
       />
 
       <Typography

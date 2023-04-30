@@ -11,7 +11,19 @@
   overflow: hidden;
 }
 
-.testit {
-  height: "1px";
-  width: "1px";
+.google-maps {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+}
+
+.slick-slide {
+  height: auto;
+}
+
+.slick-track {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
 }

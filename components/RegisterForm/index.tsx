@@ -1,44 +1,24 @@
-import { TextField, Button, Typography } from "@mui/material";
-import * as React from "react";
-import { useRef } from "react";
-import { useStore } from "../../src/store";
+import React, { useContext, useRef } from "react";
+import { UserContext } from "../../context/UserContext";
 import { useForm } from "react-hook-form";
+
+import { TextField, Button, Typography } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Validation from "../../utility/RegisterValidation";
-import Swal from "sweetalert2";
+import Validation from "../../utility/LoginValidation";
 
-import "sweetalert2/src/sweetalert2.scss";
-
-type Props = {
-  setUser: Function;
-  setIsRegistering: Function;
-};
-
-const RegisterForm = ({ setUser, setIsRegistering }: Props) => {
+const RegisterForm = () => {
+  const { register, setIsRegistering } = useContext(UserContext);
   const form = useRef<HTMLFormElement>(null);
   const {
-    register,
+    register: registerValidation,
     handleSubmit,
     formState: { errors },
   } = useForm<User>({
     resolver: yupResolver(Validation),
   });
 
-  const addUser = useStore((state) => state.addUser);
-
   const onSubmit = (inputData: User) => {
-    const newUser: User = { ...inputData };
-    addUser(newUser);
-    Swal.fire({
-      icon: "success",
-      title: "Registration was Successful!",
-      showConfirmButton: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        setUser(inputData.email);
-        setIsRegistering(false);
-      }
-    });
+    register(inputData);
   };
 
   return (
@@ -61,7 +41,7 @@ const RegisterForm = ({ setUser, setIsRegistering }: Props) => {
         type="text"
         label="Username"
         variant="outlined"
-        {...register("name")}
+        {...registerValidation("name")}
       />
       <Typography
         color="warning.main"
@@ -77,7 +57,7 @@ const RegisterForm = ({ setUser, setIsRegistering }: Props) => {
         type="text"
         label="Email"
         variant="outlined"
-        {...register("email")}
+        {...registerValidation("email")}
       />
 
       <Typography
@@ -94,7 +74,7 @@ const RegisterForm = ({ setUser, setIsRegistering }: Props) => {
         type="password"
         label="Password"
         variant="outlined"
-        {...register("password")}
+        {...registerValidation("password")}
       />
 
       <Typography
@@ -111,7 +91,7 @@ const RegisterForm = ({ setUser, setIsRegistering }: Props) => {
         type="number"
         label="Age"
         variant="outlined"
-        {...register("age")}
+        {...registerValidation("age")}
       />
 
       <Typography
@@ -128,7 +108,7 @@ const RegisterForm = ({ setUser, setIsRegistering }: Props) => {
         type="text"
         label="Gender"
         variant="outlined"
-        {...register("gender")}
+        {...registerValidation("gender")}
       />
 
       <Typography
@@ -145,7 +125,7 @@ const RegisterForm = ({ setUser, setIsRegistering }: Props) => {
         type="text"
         label="Phone"
         variant="outlined"
-        {...register("phone")}
+        {...registerValidation("phone")}
       />
 
       <Typography

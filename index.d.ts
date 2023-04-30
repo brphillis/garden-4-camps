@@ -1,5 +1,9 @@
 declare module "*.jpg";
 
+interface JSXChildren {
+  children: JSX.Element | JSX.Element[];
+}
+
 type NewGarden = {
   pictures: string[];
   status: string;
@@ -26,5 +30,14 @@ type Owner = {
 };
 
 interface User extends Owner {
-  password?: string;
+  password: string;
 }
+
+type UserContextType = {
+  user?: User;
+  isRegistering: boolean;
+  setIsRegistering: Function;
+  register: (formData: User) => void;
+  login: (email: string, password: string) => void;
+  logout: () => void;
+};

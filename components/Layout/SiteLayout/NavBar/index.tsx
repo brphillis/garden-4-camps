@@ -1,4 +1,5 @@
-import * as React from "react";
+import React, { useContext } from "react";
+import { UserContext } from "../../../../context/UserContext";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -7,10 +8,6 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import { MdHome, MdLogout, MdSearch } from "react-icons/md";
-
-type Props = {
-  setUser: Function;
-};
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -53,10 +50,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const SearchAppBar = ({ setUser }: Props) => {
+const SearchAppBar = () => {
+  const { logout } = useContext(UserContext);
   const handleLogout = () => {
-    setUser(null);
-    localStorage.removeItem("gardenUser");
+    logout();
   };
 
   return (

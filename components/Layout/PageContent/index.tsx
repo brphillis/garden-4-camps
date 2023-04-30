@@ -10,8 +10,10 @@ const PageContent = ({ children }: Props) => {
     <Box
       style={{
         maxHeight: "100dvh",
+        maxWidth: "100vw",
         height: "calc(100vh - 64px)",
         overflowY: "scroll",
+        overflowX: "hidden",
       }}
     >
       {children}

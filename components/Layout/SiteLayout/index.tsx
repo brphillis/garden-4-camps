@@ -2,16 +2,11 @@ import React from "react";
 import NavBar from "./NavBar";
 import BackgroundImage from "./BackgroundImage";
 
-type Props = {
-  children: JSX.Element | JSX.Element[];
-  setUser: Function;
-};
-
-const SiteLayout = ({ children, setUser }: Props) => {
+const SiteLayout = ({ children }: JSXChildren) => {
   return (
     <>
       <BackgroundImage>
-        <NavBar setUser={setUser} />
+        <NavBar />
         <>{children}</>
       </BackgroundImage>
     </>

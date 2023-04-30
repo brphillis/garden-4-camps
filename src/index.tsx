@@ -3,11 +3,20 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Garden, { loader as gardenLoader } from "./routes/garden";
 import Root from "./routes/root";
+import UserProvider from "../context/UserContext";
+import { ThemeProvider } from "@emotion/react";
+import { theme } from "../theme";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: (
+      <UserProvider>
+        <ThemeProvider theme={theme}>
+          <Root />
+        </ThemeProvider>
+      </UserProvider>
+    ),
     children: [
       {
         path: "gardens/:id",

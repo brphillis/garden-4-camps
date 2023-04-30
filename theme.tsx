@@ -12,4 +12,9 @@ export const theme = createTheme({
       main: "#f53527",
     },
   },
+  typography: {
+    allVariants: {
+      fontFamily: "montserrat",
+    },
+  },
 });
