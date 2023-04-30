@@ -32,7 +32,7 @@ function Carousel({ children, map }: Props) {
       }}
     >
       <Slider {...settings}>
-        {map && (
+        {latitude && longitude && (
           <div
             style={{
               height: "max-content",

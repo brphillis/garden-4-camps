@@ -34,10 +34,6 @@ const Garden = () => {
     findThenSetGarden(id);
   }, [location]);
 
-  useEffect(() => {
-    console.log(garden);
-  }, []);
-
   if (garden) {
     const gardenMap = {
       latitude: garden.latitude,

@@ -6,6 +6,7 @@ import Root from "./routes/root";
 import UserProvider from "../context/UserContext";
 import { ThemeProvider } from "@emotion/react";
 import { theme } from "../theme";
+import AddGarden, { loader as editGardenLoader } from "./routes/addgarden";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,15 @@ const router = createBrowserRouter([
         path: "gardens/:id",
         element: <Garden />,
         loader: gardenLoader,
+      },
+      {
+        path: "addgarden",
+        element: <AddGarden />,
+      },
+      {
+        path: "editGarden/:id",
+        element: <AddGarden />,
+        loader: editGardenLoader,
       },
     ],
   },

@@ -1,6 +1,5 @@
 import create from "zustand";
 import { combine, devtools } from "zustand/middleware";
-import { v4 as uuidv4 } from "uuid";
 import data from "./data.json";
 import mockUserData from "./mockusers.json";
 
@@ -8,14 +7,21 @@ const loadData = JSON.parse(JSON.stringify(data));
 
 const loadUserData = JSON.parse(JSON.stringify(mockUserData));
 
-const addGarden = (gardens: Garden[], newGarden: NewGarden): Garden[] => [
-  ...gardens,
-  {
-    _id: "NEW ID PLACEHOLDER",
-    guid: uuidv4(),
-    ...newGarden,
-  },
-];
+const addGarden = (gardens: Garden[], newGarden: Garden): Garden[] => {
+  if (gardens) {
+    return [
+      ...gardens,
+      {
+        ...newGarden,
+      },
+    ];
+  } else
+    return [
+      {
+        ...newGarden,
+      },
+    ];
+};
 
 const updateGarden = (gardens: Garden[], id: string, text: string): Garden[] =>
   gardens.map((garden) => ({
@@ -44,11 +50,10 @@ export type StorePropsType = {
 };
 
 export type StoreActionsPropsType = {
-  addGarden: () => void;
+  addGarden: (garden: Garden) => void;
   setNewGarden: () => void;
-  removeGarden: Function;
-
-  addUser: Function;
+  removeGarden: (gardenId: string) => void;
+  addUser: (user: User) => void;
 };
 
 const InitialState: StorePropsType = {
@@ -63,11 +68,10 @@ const StoreActions = (set: Function, get: Function): StoreActionsPropsType => ({
       users: addUser(state.user, user),
     }));
   },
-  addGarden() {
+  addGarden(garden: Garden) {
     set((state: any) => ({
       ...state,
-      gardens: addGarden(state.gardens, state.newGarden),
-      newGarden: "",
+      gardens: addGarden(state.gardens, garden),
     }));
   },
   setNewGarden() {

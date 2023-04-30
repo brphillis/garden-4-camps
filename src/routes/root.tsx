@@ -18,11 +18,11 @@ export default function Root() {
   return (
     <SiteLayout>
       <>
-        {/* {!user && !isRegistering && <LoginForm />}
+        {!user && !isRegistering && <LoginForm />}
 
-        {!user && isRegistering && <RegisterForm />} */}
+        {!user && isRegistering && <RegisterForm />}
 
-        {!user && (
+        {user && (
           <PageContent>
             <Box
               sx={{

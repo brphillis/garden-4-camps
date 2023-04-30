@@ -1,3 +1,7 @@
+# Devlog
+
+I have changed coords in test data so the map iframes can return valid place
+
 # Garden4Camps
 
 For this challenge, we ask you to produce a small React + TypeScript app for people who want to rent their garden to campers.
@@ -23,24 +27,24 @@ We expect you to take around 3 hours to complete the assignment so feel free to 
 
 ## Feature list
 
--   [x] Setup the project
+- [x] Setup the project
 
--   [ ] Hydrate the JSON data into the Zustand store and create a UI list representing the data
+- [ ] Hydrate the JSON data into the Zustand store and create a UI list representing the data
 
--   [ ] Every item in the list links to its own detailed page
+- [ ] Every item in the list links to its own detailed page
 
--   [ ] The main page has functionality to add/edit/delete items
+- [ ] The main page has functionality to add/edit/delete items
 
--   [ ] The main list can be filtered (name/address/tags etc... a couple should be enough)
+- [ ] The main list can be filtered (name/address/tags etc... a couple should be enough)
 
--   [ ] Comments can be added to the item details page
+- [ ] Comments can be added to the item details page
 
--   [ ] If you went that far and have time left, feel free to impress us with whatever else you think of!
+- [ ] If you went that far and have time left, feel free to impress us with whatever else you think of!
 
 ## Optional Questions
 
--   How would you go about managing React components within a team?
--   Pick one major technical challenge you've had in the past and explain how you overcame it.
+- How would you go about managing React components within a team?
+- Pick one major technical challenge you've had in the past and explain how you overcame it.
 
 ## JSON generation (FYI)
 

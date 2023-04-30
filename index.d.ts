@@ -4,7 +4,15 @@ interface JSXChildren {
   children: JSX.Element | JSX.Element[];
 }
 
-type NewGarden = {
+interface NewGarden extends Garden {
+  picture_One: string;
+  picture_Two?: string;
+  picture_Three?: string;
+}
+
+type Garden = {
+  _id: string;
+  guid: string;
   pictures: string[];
   status: string;
   owner: Owner;
@@ -13,13 +21,8 @@ type NewGarden = {
   latitude: number;
   longitude: number;
   tags: string[];
-  comments: string[];
+  comments?: string[];
 };
-
-interface Garden extends NewGarden {
-  _id: string;
-  guid: string;
-}
 
 type Owner = {
   name: string;
