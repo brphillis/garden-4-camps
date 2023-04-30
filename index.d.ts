@@ -24,6 +24,12 @@ type Garden = {
   comments?: string[];
 };
 
+type LoadedGarden = {
+  owner: Owner | null;
+  _id: string;
+  guid: string;
+};
+
 type Owner = {
   name: string;
   age: number;

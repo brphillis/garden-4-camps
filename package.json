@@ -1,36 +1,38 @@
 {
-    "name": "garden4camps",
-    "version": "1.0.0",
-    "license": "MIT",
-    "scripts": {
-        "dev": "parcel src/index.html"
-    },
-    "dependencies": {
-        "@emotion/react": "^11.10.8",
-        "@emotion/styled": "^11.10.8",
-        "@hookform/resolvers": "^3.1.0",
-        "@mui/material": "^5.12.2",
-        "@types/jest": "^29.5.1",
-        "@types/react-slick": "^0.23.10",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "react-hook-form": "^7.43.9",
-        "react-icons": "^4.8.0",
-        "react-router-dom": "^6.11.0",
-        "react-slick": "^0.29.0",
-        "sweetalert2": "^11.7.3",
-        "typescript": "^5.0.4",
-        "uuid": "^9.0.0",
-        "yup": "^1.1.1",
-        "zustand": "^4.1.4"
-    },
-    "devDependencies": {
-        "@parcel/transformer-sass": "^2.7.0",
-        "@types/node": "^17.0.29",
-        "@types/react": "^18.2.0",
-        "@types/react-dom": "^18.2.1",
-        "@types/uuid": "^9.0.1",
-        "parcel": "^2.7.0",
-        "process": "^0.11.10"
-    }
+  "name": "garden4camps",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "dev": "parcel src/index.html"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.8",
+    "@emotion/styled": "^11.10.8",
+    "@hookform/resolvers": "^3.1.0",
+    "@mui/material": "^5.12.2",
+    "@types/jest": "^29.5.1",
+    "@types/react-slick": "^0.23.10",
+    "lottie-web": "^5.11.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.9",
+    "react-icons": "^4.8.0",
+    "react-router-dom": "^6.11.0",
+    "react-slick": "^0.29.0",
+    "sweetalert2": "^11.7.3",
+    "typescript": "^5.0.4",
+    "uuid": "^9.0.0",
+    "yup": "^1.1.1",
+    "zustand": "^4.1.4"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.7.0",
+    "@types/node": "^17.0.29",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.1",
+    "@types/uuid": "^9.0.1",
+    "parcel": "^2.7.0",
+    "process": "^0.11.10"
+  },
+  "types": "./index.d.ts"
 }

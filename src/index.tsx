@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Garden, { loader as gardenLoader } from "./routes/garden";
+import Gardens, { loader as gardenLoader } from "./routes/gardens";
 import Root from "./routes/root";
 import UserProvider from "../context/UserContext";
 import { ThemeProvider } from "@emotion/react";
 import { theme } from "../theme";
-import AddGarden, { loader as editGardenLoader } from "./routes/addgarden";
+import GardenEditor, { loader as editGardenLoader } from "./routes/editgarden";
 
 const router = createBrowserRouter([
   {
@@ -21,16 +21,16 @@ const router = createBrowserRouter([
     children: [
       {
         path: "gardens/:id",
-        element: <Garden />,
+        element: <Gardens />,
         loader: gardenLoader,
       },
       {
         path: "addgarden",
-        element: <AddGarden />,
+        element: <GardenEditor />,
       },
       {
         path: "editGarden/:id",
-        element: <AddGarden />,
+        element: <GardenEditor />,
         loader: editGardenLoader,
       },
     ],

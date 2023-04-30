@@ -1,22 +1,16 @@
 import React from "react";
+import { useStore } from "../../src/store";
+import { useNavigate, Link } from "react-router-dom";
+import { maxLength } from "../../utility/StringHelpers";
+import { MdDelete, MdEdit } from "react-icons/md";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { maxLength } from "../../utility/StringHelpers";
-import { MdDelete, MdEdit } from "react-icons/md";
-import { useStore } from "../../src/store";
-import { Link } from "react-router-dom";
 
-const GardenCard = ({
-  status,
-  address,
-  owner,
-  pictures,
-  about,
-  _id,
-}: Garden) => {
+const GardenCard = ({ status, address, pictures, about, _id }: Garden) => {
+  const Navigate = useNavigate();
   const removeGarden = useStore((state) => state.removeGarden);
 
   return (
@@ -57,7 +51,7 @@ const GardenCard = ({
           minWidth: "0px",
         }}
       >
-        <MdEdit />
+        <MdEdit onClick={() => Navigate(`/editGarden/${_id}`)} />
       </Button>
 
       <Button

@@ -1,27 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { useLoaderData } from "react-router-dom";
-import { useStore } from "../store";
+import { useStore } from "../../src/store";
 import { useLocation } from "react-router-dom";
-import { Avatar, Box, CircularProgress, Container } from "@mui/material";
+import { Avatar, CircularProgress, Container } from "@mui/material";
 
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Carousel from "../../components/Carousel";
 import { MdEmail, MdPhone } from "react-icons/md";
-import avatarMale from "../images/avatar-male.jpg";
-import avatarFemale from "../images/avatar-female.jpg";
+import avatarMale from "../../src/images/avatar-male.jpg";
+import avatarFemale from "../../src/images/avatar-female.jpg";
 
-export async function loader({ params }) {
-  const data = params;
-  return data.id;
-}
+type Props = {
+  id: string;
+};
 
-const Garden = () => {
+const Garden = ({ id }: Props) => {
   const location = useLocation();
-  const id = useLoaderData() as string;
   const [garden, setGarden] = useState<Garden>();
   const { gardens } = useStore();
+  const {
+    address,
+    about,
+    owner: { name, age, phone, email } = {
+      name: "",
+      age: 0,
+      phone: "",
+      email: "",
+    },
+  } = garden ?? {};
 
   const findThenSetGarden = (id: string) => {
     const foundGarden = gardens.find((gardens) => gardens._id === id);
@@ -56,35 +63,35 @@ const Garden = () => {
         className="hideScroll"
       >
         <Typography variant="h4" sx={{ padding: "24px", fontWeight: "bold" }}>
-          {garden.address}
+          {address}
         </Typography>
 
         <Carousel map={gardenMap}>
-          {garden.pictures.map((e, i) => {
+          {garden.pictures.map((imgSrc, index) => {
             return (
-              <div
-                key={e + i}
-                style={{
+              <Container
+                key={imgSrc + index}
+                sx={{
                   height: "max-content",
                   width: "max-content",
                 }}
               >
                 <img
-                  src={e}
+                  src={imgSrc}
                   style={{
                     height: "450px",
                     width: "100%",
                     objectFit: "cover",
                   }}
                 />
-              </div>
+              </Container>
             );
           })}
         </Carousel>
 
         <CardContent>
           <Typography variant="body2" color="text.secondary" p="12px">
-            {garden.about}
+            {about}
           </Typography>
         </CardContent>
         <Typography
@@ -121,9 +128,7 @@ const Garden = () => {
               maxWidth: "max-content",
             }}
           >
-            <Typography>
-              {garden.owner.name + ", " + garden.owner.age}
-            </Typography>
+            <Typography>{name + ", " + age}</Typography>
             <Container
               style={{
                 display: "flex",
@@ -133,14 +138,11 @@ const Garden = () => {
                 width: "max-content",
               }}
             >
-              <a href={"tel:" + garden.owner.phone} className="cursor:pointer">
+              <a href={"tel:" + phone} className="cursor:pointer">
                 <MdPhone size={24} />
               </a>
 
-              <a
-                href={"mailto:" + garden.owner.email}
-                className="cursor:pointer"
-              >
+              <a href={"mailto:" + email} className="cursor:pointer">
                 <MdEmail size={24} />
               </a>
             </Container>
