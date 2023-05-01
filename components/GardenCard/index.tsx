@@ -1,4 +1,5 @@
 import React from "react";
+import type { Garden } from "../..";
 import { useStore } from "../../src/store";
 import { useNavigate, Link } from "react-router-dom";
 import { maxLength } from "../../utility/StringHelpers";
@@ -8,6 +9,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { scrollToTop } from "../../utility/DomHelpers";
 
 const GardenCard = ({ status, address, pictures, about, _id }: Garden) => {
   const Navigate = useNavigate();
@@ -50,7 +52,10 @@ const GardenCard = ({ status, address, pictures, about, _id }: Garden) => {
           padding: "0px",
           minWidth: "0px",
         }}
-        onClick={() => Navigate(`/editGarden/${_id}`)}
+        onClick={() => {
+          Navigate(`/editGarden/${_id}`);
+          scrollToTop();
+        }}
       >
         <MdEdit />
       </Button>

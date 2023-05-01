@@ -1,4 +1,5 @@
 import React, { useContext, useRef } from "react";
+import type { User } from "../..";
 import { UserContext } from "../../context/UserContext";
 import { useForm } from "react-hook-form";
 
@@ -34,8 +35,15 @@ const RegisterForm = () => {
         alignItems: "center",
         margin: "calc(100vh/10) auto",
         padding: "12px",
+        borderRadius: "12px",
       }}
     >
+      <Typography variant="h5" textAlign="center" fontWeight="bold" mt={2}>
+        Garden 4 Camps
+      </Typography>
+      <Typography textAlign="center" mb={2}>
+        Register
+      </Typography>
       <TextField
         style={{ width: "98%", margin: "6px" }}
         type="text"

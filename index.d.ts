@@ -1,16 +1,16 @@
 declare module "*.jpg";
 
-interface JSXChildren {
+export interface JSXChildren {
   children: JSX.Element | JSX.Element[];
 }
 
-interface NewGarden extends Garden {
+export interface NewGarden extends Garden {
   picture_One: string;
   picture_Two?: string;
   picture_Three?: string;
 }
 
-type Garden = {
+export type Garden = {
   _id: string;
   guid: string;
   pictures: string[];
@@ -24,18 +24,18 @@ type Garden = {
   comments: GardenComment[];
 };
 
-interface GardenComment {
+export interface GardenComment {
   text: string;
   user: string;
 }
 
-type LoadedGarden = {
+export type LoadedGarden = {
   owner: Owner | null;
   _id: string;
   guid: string;
 };
 
-type Owner = {
+export type Owner = {
   name: string;
   age: number;
   gender: string;
@@ -43,11 +43,11 @@ type Owner = {
   email: string;
 };
 
-interface User extends Owner {
+export interface User extends Owner {
   password: string;
 }
 
-type UserContextType = {
+export type UserContextType = {
   user?: User;
   isRegistering: boolean;
   setIsRegistering: Function;
@@ -55,3 +55,5 @@ type UserContextType = {
   login: (email: string, password: string) => void;
   logout: () => void;
 };
+
+export type Filter = "Address" | "Tag";

@@ -1,5 +1,6 @@
 import create from "zustand";
 import { combine, devtools } from "zustand/middleware";
+import type { User, Garden, GardenComment } from "../";
 import data from "./data.json";
 import mockUserData from "./mockusers.json";
 

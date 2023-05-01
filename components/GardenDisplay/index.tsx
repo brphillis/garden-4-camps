@@ -1,6 +1,8 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import type { Garden, GardenComment } from "../..";
 import { useStore } from "../../src/store";
 import { useLocation } from "react-router-dom";
+import { scrollToTop } from "../../utility/DomHelpers";
 import {
   Avatar,
   Box,
@@ -16,8 +18,6 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Carousel from "../../components/Carousel";
 import { MdEmail, MdPhone } from "react-icons/md";
-import avatarMale from "../../src/images/avatar-male.jpg";
-import avatarFemale from "../../src/images/avatar-female.jpg";
 import { UserContext } from "../../context/UserContext";
 
 type Props = {
@@ -27,6 +27,8 @@ type Props = {
 const Garden = ({ id }: Props) => {
   const location = useLocation();
   const { gardens } = useStore();
+  const avatarMale = require("../../src/images/avatar-male.jpg");
+  const avatarFemale = require("../../src/images/avatar-female.jpg");
   const { user } = useContext(UserContext);
   const addComment = useStore((state) => state.addComment);
   const [comment, setComment] = useState<string>("");
@@ -35,7 +37,6 @@ const Garden = ({ id }: Props) => {
   const {
     address,
     about,
-    comments,
     owner: { name, age, phone, email } = {
       name: "",
       age: 0,
@@ -54,6 +55,7 @@ const Garden = ({ id }: Props) => {
 
   useEffect(() => {
     findThenSetGarden(id);
+    scrollToTop();
   }, [location]);
 
   const handleAddComment = () => {
@@ -83,11 +85,7 @@ const Garden = ({ id }: Props) => {
           overflowY: "scroll",
         }}
       >
-        <Typography
-          id="ThisPageTitle"
-          variant="h5"
-          sx={{ padding: "24px", fontWeight: "bold" }}
-        >
+        <Typography variant="h5" sx={{ padding: "24px", fontWeight: "bold" }}>
           {address}
         </Typography>
 

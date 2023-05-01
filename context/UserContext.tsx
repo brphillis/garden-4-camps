@@ -1,4 +1,5 @@
 import * as React from "react";
+import type { User, UserContextType, JSXChildren } from "../";
 import { createContext, useState } from "react";
 import { useStore } from "../src/store";
 import Swal from "sweetalert2";

@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
+import type { Garden, LoadedGarden } from "../..";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useStore } from "../../src/store";
 import { UserContext } from "../../context/UserContext";
