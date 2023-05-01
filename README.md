@@ -1,5 +1,12 @@
 # Devlog
 
+To run the project:
+
+```bash
+yarn install
+yarn dev
+```
+
 I have changed coords in test data so the map iframes can return valid place
 
 # Garden4Camps
@@ -35,16 +42,20 @@ We expect you to take around 3 hours to complete the assignment so feel free to 
 
 - [x] The main page has functionality to add/edit/delete items
 
-- [ ] The main list can be filtered (name/address/tags etc... a couple should be enough)
+- [x] The main list can be filtered (name/address/tags etc... a couple should be enough)
 
 - [x] Comments can be added to the item details page
 
-- [ ] If you went that far and have time left, feel free to impress us with whatever else you think of!
+- [x] If you went that far and have time left, feel free to impress us with whatever else you think of!
 
 ## Optional Questions
 
 - How would you go about managing React components within a team?
 - Pick one major technical challenge you've had in the past and explain how you overcame it.
+
+Recently in my workplace most of the senior developers were on leave and during their absense we noticed that a large amount of
+requests to our api were being rejected so I had to find out what the issue was. Upon investigation it turned out that the response was actually being rejected by the client side as the security protocol on the server had changed. I had to rectify this by changing the accepted security protocol types on our functions for
+recieving a certain type of token from the api.
 
 ## JSON generation (FYI)
 

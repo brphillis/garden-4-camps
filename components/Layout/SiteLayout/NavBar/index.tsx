@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import { MdAdd, MdHome, MdLogout } from "react-icons/md";
 
 const SearchAppBar = () => {
-  const { logout } = useContext(UserContext);
+  const { logout, user } = useContext(UserContext);
   const navigate = useNavigate();
   const handleLogout = () => {
     logout();
@@ -40,17 +40,19 @@ const SearchAppBar = () => {
             <MdHome />
           </IconButton>
 
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-            onClick={() => navigate("/addgarden")}
-          >
-            <MdAdd />
-            <Typography sx={{ ml: 1 }}>Add A Garden</Typography>
-          </IconButton>
+          {user && (
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              sx={{ mr: 2 }}
+              onClick={() => navigate("/addgarden")}
+            >
+              <MdAdd />
+              <Typography sx={{ ml: 1 }}>Add A Garden</Typography>
+            </IconButton>
+          )}
 
           <Typography
             variant="h6"

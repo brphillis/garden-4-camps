@@ -33,6 +33,7 @@ export type LoadedGarden = {
   owner: Owner | null;
   _id: string;
   guid: string;
+  tags?: string[];
 };
 
 export type Owner = {
@@ -56,4 +57,4 @@ export type UserContextType = {
   logout: () => void;
 };
 
-export type Filter = "Address" | "Tag";
+export type Filter = "Address" | "Tag" | "About";

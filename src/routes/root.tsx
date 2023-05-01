@@ -11,10 +11,9 @@ import LoginForm from "../../components/LoginForm";
 import RegisterForm from "../../components/RegisterForm";
 import PageContent from "../../components/Layout/PageContent";
 import GardenCard from "../../components/GardenCard";
-import { Box, MenuItem, Select, TextField, Typography } from "@mui/material";
+import { Box, MenuItem, Select, TextField } from "@mui/material";
 import { generateId } from "../../utility/StringHelpers";
-import { Lottie } from "../../components/Lottie";
-import campingAnimation from "../images/camping-animation.json";
+import HomeSplash from "../../components/HomeSplash";
 
 export default function Root() {
   const location = useLocation();
@@ -41,14 +40,20 @@ export default function Root() {
       );
     }
 
+    if (currentFilter === "About") {
+      result = gardens.filter((garden) =>
+        garden.about.toLowerCase().includes(searchString.toLowerCase())
+      );
+    }
+
     if (result.length > 0) {
       setCurrengardens(result);
     }
   };
 
   useEffect(() => {
-    setCurrengardens(currentGardens);
-  }, [gardens, filterGardens]);
+    setCurrengardens(gardens);
+  }, [gardens]);
 
   return (
     <SiteLayout>
@@ -85,7 +90,7 @@ export default function Root() {
               >
                 <Box
                   sx={{
-                    padding: "8px",
+                    padding: "12px",
                     background: "white",
                     borderRadius: "12px",
                     margin: "6px",
@@ -108,15 +113,16 @@ export default function Root() {
                     label="Search"
                     variant="outlined"
                   />
+
                   <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    label="Filter By"
-                    sx={{ width: "30%" }}
+                    sx={{ width: "60%" }}
+                    variant="outlined"
+                    value={currentFilter}
                     onChange={(e) => setCurrentFilter(e.target.value as Filter)}
                   >
                     <MenuItem value="Address">Address</MenuItem>
                     <MenuItem value="Tag">Tag</MenuItem>
+                    <MenuItem value="About">Description</MenuItem>
                   </Select>
                 </Box>
                 {currentGardens.map((gardens: Garden) => {
@@ -128,41 +134,7 @@ export default function Root() {
                 })}
               </Box>
 
-              {isHome && (
-                <Box
-                  sx={{
-                    height: "450px",
-                    width: "450px",
-                    display: "block",
-                    margin: {
-                      sm: "48px 100px 64px 100px",
-                      md: "48px 100px 64px 100px",
-                      xl: "92px 100px auto 100px",
-                    },
-                    padding: "48px",
-                  }}
-                >
-                  <Lottie
-                    animationData={campingAnimation}
-                    loop={true}
-                    autoplay={true}
-                  />
-                  <Typography
-                    variant="h3"
-                    textAlign="center"
-                    fontWeight="bold"
-                    color="white"
-                    bgcolor="#0320fcBF"
-                    borderRadius="12px"
-                    padding="6px 12px"
-                    sx={{ userSelect: "none" }}
-                  >
-                    Garden 4 Camps
-                  </Typography>
-                </Box>
-              )}
-
-              {!isHome && <Outlet />}
+              {isHome ? <HomeSplash /> : <Outlet />}
             </Box>
           </PageContent>
         )}

@@ -19,6 +19,7 @@ import Typography from "@mui/material/Typography";
 import Carousel from "../../components/Carousel";
 import { MdEmail, MdPhone } from "react-icons/md";
 import { UserContext } from "../../context/UserContext";
+import { generateId } from "../../utility/StringHelpers";
 
 type Props = {
   id: string;
@@ -178,6 +179,7 @@ const Garden = ({ id }: Props) => {
           latestComments.map(({ user, text }) => {
             return (
               <Box
+                key={generateId()}
                 sx={{
                   display: "flex",
                   flexDirection: "column",
@@ -210,6 +212,7 @@ const Garden = ({ id }: Props) => {
                 >
                   " {text} "
                 </Typography>
+                <Divider sx={{ width: "100%", margin: "12px 0px" }} />
               </Box>
             );
           })}

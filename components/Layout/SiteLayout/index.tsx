@@ -1,4 +1,5 @@
 import React from "react";
+import type { JSXChildren } from "../../../";
 import NavBar from "./NavBar";
 import BackgroundImage from "./BackgroundImage";
 

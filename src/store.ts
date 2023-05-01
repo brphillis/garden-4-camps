@@ -82,7 +82,7 @@ const StoreActions = (set: Function, get: Function): StoreActionsPropsType => ({
   addUser(user: User) {
     set((state: any) => ({
       ...state,
-      users: addUser(state.user, user),
+      users: addUser(state.users, user),
     }));
   },
   addGarden(garden: Garden) {

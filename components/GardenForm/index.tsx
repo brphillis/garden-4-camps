@@ -57,6 +57,7 @@ export default function GardenForm({ id }: Params) {
         owner: foundGarden.owner,
         _id: foundGarden._id,
         guid: foundGarden.guid,
+        tags: foundGarden?.tags,
       });
     }
   };
@@ -74,6 +75,7 @@ export default function GardenForm({ id }: Params) {
     pictures,
     longitude,
     latitude,
+    tags,
   }: Garden) => {
     loadedGarden;
 
@@ -85,7 +87,7 @@ export default function GardenForm({ id }: Params) {
       pictures,
       longitude,
       latitude,
-      tags: ["test", "test"],
+      tags: loadedGarden?.tags || (tags as unknown as string).split(/[ ,]+/),
       status: "active",
       comments: [],
       owner: loadedGarden?.owner || user!,
@@ -93,9 +95,12 @@ export default function GardenForm({ id }: Params) {
 
     const userOwnsGarden = user?.email === newGarden.owner.email;
 
-    if (id && !userOwnsGarden) {
-      alert("You dont own this Garden");
-    }
+    //enabling this will stop users from editing gardens they dont own
+
+    // if (id && !userOwnsGarden) {
+    //   alert("You dont own this Garden");
+    // }
+
     if (id && userOwnsGarden) {
       updateGarden(newGarden);
       navigate(`/gardens/${newGarden._id}`);
@@ -167,11 +172,29 @@ export default function GardenForm({ id }: Params) {
       <TextField
         sx={{ width: "100%", margin: "6px" }}
         type="text"
+        label="Tags"
+        variant="outlined"
+        size="small"
+        {...registerValidation("tags")}
+      />
+
+      <TextField
+        sx={{ width: "100%", margin: "6px" }}
+        type="text"
         label="Image URL"
         variant="outlined"
         size="small"
         {...registerValidation("pictures.0")}
       />
+
+      <Typography
+        color="warning.main"
+        fontWeight="bold"
+        padding="6px 12px"
+        fontSize="12px"
+      >
+        {errors.pictures?.[0]?.message}
+      </Typography>
 
       {!imageTwo && !imageThree && (
         <Container>
