@@ -6,6 +6,8 @@ To run the project:
 yarn install
 yarn dev
 ```
+For the purpose of demonstrating the CRUD operations users will be able to perform delete and update on other users gardens,
+see commented out code for the implementation that disables this.
 
 I have changed coords in test data so the map iframes can return valid place
 
